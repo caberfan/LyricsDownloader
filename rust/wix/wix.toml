@@ -1,0 +1,10 @@
+[files]
+"icon.png" = { path = "../icon.png" }
+[install]
+install-dir = "LyricsDownloader"
+[shortcut]
+name = "Lyrics Downloader"
+location = "ProgramsFolder"
+[shortcut.desktop]
+name = "Lyrics Downloader"
+location = "DesktopFolder"
