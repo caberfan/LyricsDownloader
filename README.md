@@ -1,6 +1,4 @@
-Here's a `README.md` file with the content you requested:
 
-````markdown
 # Lyrics Downloader
 
 This project is a simple tool for downloading synced lyrics for music files in your collection. The program scans through your music folder, identifies supported formats (e.g., `.mp3` and `.flac`), retrieves metadata (title and artist), and fetches synced lyrics from an API. The lyrics are then saved as `.lrc` files in the same folder as the original music files.
@@ -22,7 +20,7 @@ This project is a simple tool for downloading synced lyrics for music files in y
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/LyricsDownloader.git
-````
+   ```
 
 2. Change directory to the project folder:
 
