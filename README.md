@@ -17,8 +17,32 @@ This project is a simple tool for downloading synced lyrics for music files in y
 - Dependencies: `walkdir`, `reqwest`, `serde`, `lofty`, `eframe`, `rfd`
 
 ## Setup
+## Prerequisites
 
+Before you can run this project, you need to install the following:
+
+### 1. **Install Cargo (Rust Package Manager)**
+
+To get started with Rust and Cargo (the Rust package manager), follow these steps:
+
+- **Install Rust:**
+
+  - Go to the official Rust installation page: [https://www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install)
+  - Follow the instructions for your operating system.
+  - After installation, verify it by running the following commands in your terminal:
+
+    ```bash
+    rustc --version
+    cargo --version
+    ```
+
+  - This will install both `rustc` (Rust Compiler) and `cargo` (Rust Package Manager).
+
+- **Using Cargo**:
+  Cargo is the Rust package manager, and it will help you download dependencies and build the project.
+### 2. Clone the project 
 1. Clone the repository:
+   
    ```bash
    git clone https://github.com/caberfan/LyricsDownloader.git
    ```
@@ -28,14 +52,14 @@ This project is a simple tool for downloading synced lyrics for music files in y
    ```bash
    cd LyricsDownloader
    ```
-
-3. Install the dependencies:
+### 3. Build the project
+Install the dependencies:
 
    ```bash
    cargo build
    ```
 
-4. Run the program:
+### 4. Run the program:
 
    ```bash
    cargo run
