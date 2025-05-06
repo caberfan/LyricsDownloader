@@ -51,7 +51,4 @@ This project is a simple tool for downloading synced lyrics for music files in y
 
 In the moment I am still too lazy to add a digital signature, but there's no virus, go ahead and run it.
 
-```
-
 Feel free to modify the content as necessary!
-```
