@@ -2,6 +2,7 @@
 # Lyrics Downloader
 
 This project is a simple tool for downloading synced lyrics for music files in your collection. The program scans through your music folder, identifies supported formats (e.g., `.mp3` and `.flac`), retrieves metadata (title and artist), and fetches synced lyrics from an API. The lyrics are then saved as `.lrc` files in the same folder as the original music files.
+![image](https://github.com/user-attachments/assets/22ba6b82-189f-4ef2-8aa8-a5391b9fc458)
 
 ## Features
 
