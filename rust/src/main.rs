@@ -20,6 +20,11 @@ struct LyricsResult {
     syncedLyrics: Option<String>,
 }
 
+/// Reads metadata from a file.
+///
+/// This function will first attempt to read the "TrackTitle" and "TrackArtist" tags from the file using the `lofty` crate.
+/// If this fails, it will then attempt to split the file name into an artist and title by splitting on " - ".
+/// If this fails (for example, if the file name does not contain " - "), the function will return (None, None).
 fn get_metadata(path: &PathBuf) -> (Option<String>, Option<String>) {
     if let Ok(tagged_file) = read_from_path(path) {
         let tag = tagged_file.primary_tag();
@@ -39,6 +44,10 @@ fn get_metadata(path: &PathBuf) -> (Option<String>, Option<String>) {
     (None, None)
 }
 
+/// Fetches the lyrics for a given song from lrclib.net.
+///
+/// Will return None if the API request fails, or if the response does not
+/// contain a LyricsResult with syncedLyrics.
 fn fetch_lyrics(title: &str, artist: &str) -> Option<String> {
     let url = format!(
         "https://lrclib.net/api/search?track_name={}&artist_name={}",
@@ -64,6 +73,12 @@ fn write_lrc(path: &PathBuf, lyrics: &str) {
     }
 }
 
+/// Main entry point of the program.
+///
+/// This function will create an egui-native window with the given title,
+/// and will set up the icon for that window. It will then create a
+/// `LyricsApp` instance and pass it to `eframe::run_native` to start
+/// the event loop.
 fn main() -> eframe::Result<()> {
     let icon = {
         let icon_bytes = include_bytes!("../icon.png");
@@ -149,6 +164,23 @@ fn process_folder(folder: &PathBuf, logs: Arc<Mutex<Vec<String>>>) -> (usize, us
     (scanned, written)
 }
 
+/// Processes a folder to embed lyrics into audio files.
+///
+/// This function scans the specified `folder` for audio files with `.mp3` or `.flac` extensions,
+/// attempts to fetch lyrics for each file based on its metadata, and embeds the lyrics into the
+/// file if found. The process is logged using the provided `logs` Arc<Mutex<Vec<String>>>.
+///
+/// # Arguments
+///
+/// * `folder` - A reference to the folder path to be scanned for audio files.
+/// * `logs` - A thread-safe vector for logging messages during the processing.
+///
+/// # Returns
+///
+/// A tuple containing:
+/// * `usize` - The total number of files scanned.
+/// * `usize` - The number of files into which lyrics were successfully embedded.
+
 fn process_folder_embed(folder: &PathBuf, logs: Arc<Mutex<Vec<String>>>) -> (usize, usize) {
     let mut scanned = 0;
     let mut embedded = 0;
@@ -201,6 +233,15 @@ fn process_folder_embed(folder: &PathBuf, logs: Arc<Mutex<Vec<String>>>) -> (usi
     (scanned, embedded)
 }
 
+    /// Embed lyrics in a file.
+    ///
+    /// This function takes a file path, some lyrics, the file extension, and a reference to a vector of log messages.
+    /// It uses the `lofty` crate to read the file as a `TaggedFile`, and then attempts to embed the lyrics in a tag.
+    /// If the tag does not exist, it is created.
+    /// If the file cannot be opened or saved, an error is logged and the function returns `false`.
+    /// If the tag cannot be read or written, an error is logged and the function returns `false`.
+    ///
+    /// The function returns `true` if the lyrics were successfully embedded, and `false` otherwise.
 fn embed_lyrics(path: &PathBuf, lyrics: &str, ext: &str, logs: &Arc<Mutex<Vec<String>>>) -> bool {
     use lofty::{TagType, ItemKey, TaggedFileExt, AudioFile, Tag};
 
